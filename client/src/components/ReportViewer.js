@@ -29,7 +29,7 @@ const ReportViewer = ({ report, onReset, onBack }) => {
   const handleDownload = async () => {
     setIsDownloading(true);
     try {
-      const response = await fetch(downloadUrl);
+      const response = await fetch(`${downloadUrl}?download=true`);
       if (!response.ok) throw new Error('Download failed');
       
       const blob = await response.blob();
@@ -171,7 +171,7 @@ const ReportViewer = ({ report, onReset, onBack }) => {
         </button>
 
         <a
-          href={downloadUrl}
+          href={`http://localhost:5000${downloadUrl}?download=false`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center space-x-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-semibold"
@@ -181,7 +181,7 @@ const ReportViewer = ({ report, onReset, onBack }) => {
         </a>
 
         <button
-          onClick={handleShare}
+          onClick={handleDownload}
           className="flex items-center justify-center space-x-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors font-semibold"
         >
           <Share className="h-4 w-4" />
